@@ -7,11 +7,11 @@ make it possible to import elsewhere!
 
 ## Background
 
-Firefox users may still remember the day we loss [Tab Groups from Quicksaver]
-(https://github.com/Quicksaver/Tab-Groups). Thanks to many developers, several 
-alternatives available in latest Firefox which continue the idea of Tab Groups. 
-However, there are lack of standard among them and backup file from one addon 
-may incompatible to import into another.
+Firefox users may still remember the day we loss 
+[Tab Groups from Quicksaver](https://github.com/Quicksaver/Tab-Groups). 
+Thanks to many developers, several alternatives available in latest Firefox 
+which continue the idea of Tab Groups. However, there are lack of standard 
+among them and backup file from one addon may incompatible to import into another.
 
 Fortunately, thanks for their respectful to legacy Tag Groups, most of them able 
 to import the backup file generated from legacy Tab Groups. This project is to 
