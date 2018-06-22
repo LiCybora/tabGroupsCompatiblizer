@@ -45,7 +45,7 @@ otherwise you have to specify which addon you are from.
 	- `npm install promise-fs` (may skipped if already installed globally)
 
 3. Run `node . <path-to-backup-file>`, if you don't use default name generated 
-	by addon, see [Usage](https://github.com/LiCybora/tabGroupsCompatiblizer#Usage). 
+	by addon, see [Usage](https://github.com/LiCybora/tabGroupsCompatiblizer#usage). 
 	You will get a converted file `tabGroups-backup.json` in your current directory.
 
 ## Usage
