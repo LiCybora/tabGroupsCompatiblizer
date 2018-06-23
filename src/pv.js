@@ -7,6 +7,9 @@
     Panorama View: Refer to https://github.com/photodiode/panorama-view/
     Tab Groups: Refer to https://github.com/Quicksaver/Tab-Groups 
 
+    For easy typing, use short from PV for Panorama View, and TG for Tab Groups.
+
+
     Note: NOT all information can be transformed.
 
     Author: LiCybora
@@ -19,7 +22,7 @@ exports.convert = async (filename) => {
     let tabGroups = await fs.readFile(filename, "utf8");
     tabGroups = JSON.parse(tabGroups);
 
-    // Mod itself as Tab Groups from Quicksaver.
+    // Mod itself as TG.
     delete tabGroups.file;
     tabGroups.version = ["tabGroups", 1];
 
@@ -27,13 +30,13 @@ exports.convert = async (filename) => {
     let maxTimeStamp = 0;
     let minTimeStmap = 1e16;
     tabGroups.windows[0].tabs.forEach(function(tab) {
-        tab.groupId += 3;           // No idea why groupId 0 is not accepted, and perhaps also 1.
+        tab.groupId += 3;           // No idea why groupId 0 is not accepted.
         tab.entries = [{
             "url": tab.url,
             "title": tab.title,
-            "charset": "UTF-8",     // No charset saved in panorama-view
+            "charset": "UTF-8",     // No charset saved in PV
             "ID": tab.index,
-            "persist": true         // No idea what it is, panorama-view don't have it.
+            "persist": true         // No idea what it is, PV don't have it.
         }];
 
         delete tab.url;
@@ -51,18 +54,18 @@ exports.convert = async (filename) => {
             "tabview-tab": "{\"groupID\":" + (tab.groupId) + "}"
         };
 
-        // Belows are not saved by panorama-view, just create it
+        // Belows are not saved by PV, just create it
         tab.attributes = {};
-        // Randomly choose a group of tab to show
+        // Randomly choose a group of tab to show (in active)
         if (chosenTabID === null) {
             chosenTabID = tab.groupId;
             tab.hidden = false;
         } else {
-            tab.hidden = (tab.groupId !== chosenTabID);   // hide tabs that are not chosen.
+            tab.hidden = (tab.groupId !== chosenTabID);
         }
 
         delete tab.groupId;
-        tab.index = 1;      // This is hard coded by Quicksaver and no ideay why.
+        tab.index = 1;      // This is hard coded by TG and no idea why.
     });
 
     // This is not true session, but Panorama-view don't provide this info
@@ -72,15 +75,15 @@ exports.convert = async (filename) => {
         "recentCrashes": 0
     }
 
-    // PV use relative position to place group, while Quicksaver use absolute position
-    // But probably information will loss after import, report to me if there are issues.
+    // PV use relative position to place group, while TG use absolute position
+    // But probably better to reset it after import, change it if you want.
     const width = 1440;
     const height = 900;
 
     let tvg = {};
     let slot = 1;
     tabGroups.windows[0].groups.forEach(function(group) {
-        group.id += 3;   // No idea why groupId 0 is not accepted, and perhaps also 1.
+        group.id += 3;   // No idea why groupId 0 is not accepted
         let pos = group.rect;
         let bounds = {
             "left": width * pos.x,
@@ -99,7 +102,7 @@ exports.convert = async (filename) => {
             "userSize": userSize,
             "id": group.id,
             "title": group.name,
-            // These are not available in Panorama-View, just create all as true (by default)
+            // These are not available in PV, just create all as true (by default)
             "stackTabs": true,
             "showThumbs": true,
             "showUrls": true,

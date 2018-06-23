@@ -1,3 +1,9 @@
+/*******************************************************************************
+
+    Conversion script entry point.
+
+    Author: LiCybora
+ */
 "use strict";
 
 const assert = require("assert");
@@ -48,5 +54,6 @@ const pv = require('./src/pv.js');
 		default:
 			assert(false);
 	}
+    console.log("Conversion done! Your converted backup is tabGroups-backup.json")
 
 })();
