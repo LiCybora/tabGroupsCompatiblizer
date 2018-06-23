@@ -14,9 +14,9 @@
 
     Author: LiCybora
  */
-"use strict"
+"use strict";
 
-const fs = require('promise-fs');
+const fs = require("promise-fs");
 
 exports.convert = async (filename) => {
     let tabGroups = await fs.readFile(filename, "utf8");
@@ -26,9 +26,14 @@ exports.convert = async (filename) => {
     delete tabGroups.file;
     tabGroups.version = ["tabGroups", 1];
 
-    let chosenTabID = null;
+    // Fake session
     let maxTimeStamp = 0;
     let minTimeStmap = 1e16;
+    let groupExist = [];
+
+    // No idea why groupId 0 is not accepted.
+    tabGroups.windows[0].groupIndex += 3;
+    tabGroups.windows[0].activeGroup += 3;
     tabGroups.windows[0].tabs.forEach(function(tab) {
         tab.groupId += 3;           // No idea why groupId 0 is not accepted.
         tab.entries = [{
@@ -56,13 +61,22 @@ exports.convert = async (filename) => {
 
         // Belows are not saved by PV, just create it
         tab.attributes = {};
-        // Randomly choose a group of tab to show (in active)
-        if (chosenTabID === null) {
-            chosenTabID = tab.groupId;
-            tab.hidden = false;
-        } else {
-            tab.hidden = (tab.groupId !== chosenTabID);
+        // Hide inactive groups
+        tab.hidden = (tab.groupId !== tabGroups.windows[0].activeGroup);
+
+
+        let tvt = {
+            "groupID": tab.groupId
+        };
+        // Randomly determine active tab in group as PV don't have it.
+        if (groupExist.indexOf(tab.groupId) === -1) {
+            groupExist.push(tab.groupId);
+            tvt.acitve = true;
         }
+
+        tab.extData = {
+            "tabview-tab": JSON.stringify(tvt, null)
+        };
 
         delete tab.groupId;
         tab.index = 1;      // This is hard coded by TG and no idea why.
@@ -73,7 +87,7 @@ exports.convert = async (filename) => {
         "lastUpdate": maxTimeStamp,
         "startTime": minTimeStmap,
         "recentCrashes": 0
-    }
+    };
 
     // PV use relative position to place group, while TG use absolute position
     // But probably better to reset it after import, change it if you want.
@@ -102,7 +116,7 @@ exports.convert = async (filename) => {
             "userSize": userSize,
             "id": group.id,
             "title": group.name,
-            // These are not available in PV, just create all as true (by default)
+            // These are not in PV, just create all as true (by default)
             "stackTabs": true,
             "showThumbs": true,
             "showUrls": true,
@@ -115,15 +129,17 @@ exports.convert = async (filename) => {
     let tvgs = {
         "nextID": tabGroups.windows[0].groupIndex,
         "activeGroupId": tabGroups.windows[0].activeGroup, 
-        "activeGroupName": tvg[tabGroups.windows[0].activeGroup.toString().id], 
-        "totalNumber": tabGroups.windows[0].groups.length, 
-    }
+        "activeGroupName": tvg[tabGroups.windows[0].activeGroup.toString()].title, 
+        "totalNumber": tabGroups.windows[0].groups.length
+    };
 
     tabGroups.windows[0].extData = {
         "tabview-group": JSON.stringify(tvg, null),
         "tabview-groups": JSON.stringify(tvgs, null)
-    }
+    };
 
     delete tabGroups.windows[0].groups;
-    await fs.writeFile('./tabGroups-backup.json', JSON.stringify(tabGroups, null, 2), "utf-8");
+    delete tabGroups.windows[0].groupIndex;
+    delete tabGroups.windows[0].activeGroup;
+    await fs.writeFile("./tabGroups-backup.json", JSON.stringify(tabGroups, null, 2), "utf-8");
 };

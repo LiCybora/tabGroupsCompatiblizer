@@ -14,9 +14,9 @@
 
     Author: LiCybora
  */
- "use strict"
+ "use strict";
 
-const fs = require('promise-fs');
+const fs = require("promise-fs");
 
 exports.convert = async (filename) => {
     let STG = await fs.readFile(filename, "utf8");
@@ -60,9 +60,19 @@ exports.convert = async (filename) => {
         		}
         	];
         	// FIXME: Not sure how STG handle pinned tabs.
-        	tab.pinned = false;
+        	// tab.pinned = false;
         	tab.attributes = {};
-        	tab.extData = {"tabview-tab": "{\"groupID\":" + group.id + "}"};
+
+            let tvt = {};        
+            tvt.groupID = group.id;
+
+            if (tab.active) {
+                tvt.active = true;
+            }
+            tab.extData = {
+                "tabview-tab" : JSON.stringify(tvt, null)
+            };
+
         	tab.index = 1;
         	tab.image = tab.favIconUrl;
 	    	if (activeGroup === null) {
@@ -98,14 +108,14 @@ exports.convert = async (filename) => {
     let tvgs = {
         "nextID": STG.lastCreatedGroupPosition + 4,
         "activeGroupId": activeGroup, 
-        "activeGroupName": tvg[activeGroup.toString().id], 
-        "totalNumber": STG.groups.length, 
-    }
+        "activeGroupName": tvg[activeGroup.toString()].title, 
+        "totalNumber": STG.groups.length
+    };
 
     tabGroups.windows[0].extData = {
         "tabview-group": JSON.stringify(tvg, null),
         "tabview-groups": JSON.stringify(tvgs, null)
-    }
+    };
 
-    await fs.writeFile('./tabGroups-backup.json', JSON.stringify(tabGroups, null, 2), "utf-8");
+    await fs.writeFile("./tabGroups-backup.json", JSON.stringify(tabGroups, null, 2), "utf-8");
 };

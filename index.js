@@ -7,8 +7,8 @@
 "use strict";
 
 const assert = require("assert");
-const stg = require('./src/stg.js');
-const pv = require('./src/pv.js');
+const stg = require("./src/stg.js");
+const pv = require("./src/pv.js");
 
 (async () => {
 	const argv = process.argv.slice(2);
@@ -16,17 +16,17 @@ const pv = require('./src/pv.js');
 	let filename = null;
 	for (const arg of argv) {
 		switch (arg) {
-			case '--pv':
+			case "--pv":
 				assert(action === null);
-				action = 'pv';
+				action = "pv";
 				break;
-			case '--stg':
+			case "--stg":
 				assert(action === null);
-				action = 'stg';
+				action = "stg";
 				break;
 			default:
 				assert(filename === null);
-				if (arg.indexOf('.json') !== -1) {
+				if (arg.indexOf(".json") !== -1) {
 					filename = arg;
 				}
 		}	
@@ -34,12 +34,12 @@ const pv = require('./src/pv.js');
 
 	assert(filename !== null);
 	if (action === null) {
-		if (filename.indexOf('panoramaView') !== -1) {
-			action = 'pv';
-		} else if (filename.indexOf('simple-tab-groups') !== -1) {
-			action = 'stg';
+		if (filename.indexOf("panoramaView") !== -1) {
+			action = "pv";
+		} else if (filename.indexOf("simple-tab-groups") !== -1) {
+			action = "stg";
 		} else {
-			throw new Error("Groups file from unknown addons, please specify it")
+			throw new Error("Groups file from unknown addons, please specify it");
 		}
 	}
 
@@ -54,6 +54,6 @@ const pv = require('./src/pv.js');
 		default:
 			assert(false);
 	}
-    console.log("Conversion done! Your converted backup is tabGroups-backup.json")
+    console.log("Conversion done! Your converted backup is tabGroups-backup.json");
 
 })();
