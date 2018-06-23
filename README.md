@@ -46,17 +46,19 @@ otherwise you have to specify which addon you are from.
 
 3. Run `node . <path-to-backup-file>`, if you don't use default name generated 
 	by addon, see [Usage](https://github.com/LiCybora/tabGroupsCompatiblizer#usage). 
-	You will get a converted file `tabGroups-backup.json` in your current directory.
+	You will get a converted file `tabGroups-backup.json` in your current 
+	directory after successful, with message `Conversion done! Your converted 
+	backup is tabGroups-backup.json`.
 
 ## Usage
 ```
 node . <path-to-backup-file> [<addon-name>] 
 
-<path-to-backup-file>	The path of your backup file to be converted
-<addon-name>			One of (default: none, determined by filename):
-	--pv				Convert from Panorama
-	--stg				Convert from Simple Tab Groups
-	--sync				Convert from Sync Tab Groups
+<path-to-backup-file>		The path of your backup file to be converted
+<addon-name>				One of (default: none, determined by filename):
+	--pv						Convert from Panorama
+	--stg						Convert from Simple Tab Groups
+	--sync						Convert from Sync Tab Groups
 
 ```
 
