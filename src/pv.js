@@ -4,7 +4,7 @@
     Groups (by Quicksaver) format. To avoid ambiguous, terms refers to the 
     following two projects:
 
-    Panorama View: Refer to https://github.com/photodiode/panorama-view/
+    Panorama View: Refer to https://github.com/photodiode/panorama-view
     Tab Groups: Refer to https://github.com/Quicksaver/Tab-Groups 
 
     For easy typing, use short from PV for Panorama View, and TG for Tab Groups.

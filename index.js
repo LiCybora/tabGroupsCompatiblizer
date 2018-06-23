@@ -9,6 +9,7 @@
 const assert = require("assert");
 const stg = require("./src/stg.js");
 const pv = require("./src/pv.js");
+const sync = require("./src/sync.js");
 
 (async () => {
 	const argv = process.argv.slice(2);
@@ -24,6 +25,10 @@ const pv = require("./src/pv.js");
 				assert(action === null);
 				action = "stg";
 				break;
+			case "--sync":
+				assert(action === null);
+				action = "sync";
+				break;
 			default:
 				assert(filename === null);
 				if (arg.indexOf(".json") !== -1) {
@@ -38,6 +43,8 @@ const pv = require("./src/pv.js");
 			action = "pv";
 		} else if (filename.indexOf("simple-tab-groups") !== -1) {
 			action = "stg";
+		} else if (filename.indexOf("syncTabGroups") !== -1) {
+			action = "sync";
 		} else {
 			throw new Error("Groups file from unknown addons, please specify it");
 		}
@@ -50,6 +57,9 @@ const pv = require("./src/pv.js");
 			break;
 		case "stg":
 			stg.convert(filename);
+			break;
+		case "sync":
+			sync.convert(filename);
 			break;
 		default:
 			assert(false);

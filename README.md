@@ -55,18 +55,21 @@ node . <path-to-backup-file> [<addon-name>]
 <path-to-backup-file>	The path of your backup file to be converted
 <addon-name>			One of (default: none, determined by filename):
 	--pv				Convert from Panorama
-	--stg				Convert from Simple Tab Group
+	--stg				Convert from Simple Tab Groups
+	--sync				Convert from Sync Tab Groups
 
 ```
 
 Output: A converted file `tabGroups-backup.json` will be in your current directory.
 
-## Supported Alternative of Tab Groups
+## Supported Alternative of Tab Groups Extensions
 
-[Panorama View](https://github.com/photodiode/panorama-view/)
+[Panorama View](https://github.com/photodiode/panorama-view)
 
 [Totally not Panorama](https://github.com/nyordanov/panorama) (Treated to be same as Panorama View)
 
-[Simple Tab Group](https://github.com/Drive4ik/simple-tab-groups)
+[Simple Tab Groups](https://github.com/Drive4ik/simple-tab-groups)
+
+[Sync Tab Groups](https://github.com/Morikko/sync-tab-groups)
 
 and more... (open an issue or pull request if you want other addons to be supported)
