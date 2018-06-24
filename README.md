@@ -1,4 +1,4 @@
-# tabGroupsCompatiblizer
+# Tab Groups Compatiblizer
 
 Seamlessly migrate your tab groups backup among various brands 
 
