@@ -56,7 +56,7 @@ otherwise you have to specify which addon you are from.
 node . <path-to-backup-file> [<addon-name>] 
 
 <path-to-backup-file>        The path of your backup file to be converted
-<addon-name>                 One of (default: none, determined by filename):
+<addon-name>                 One of belows (default: none, determined by filename):
 	--pv                         Convert from Panorama
 	--stg                        Convert from Simple Tab Groups
 	--sync                       Convert from Sync Tab Groups
